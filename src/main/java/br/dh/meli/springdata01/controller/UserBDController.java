@@ -3,6 +3,7 @@ package br.dh.meli.springdata01.controller;
 import br.dh.meli.springdata01.model.UserBD;
 import br.dh.meli.springdata01.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +25,15 @@ public class UserBDController {
         Optional<UserBD> userFound = service.getUserById(id);
 
         if (userFound.isEmpty()) {
-            // O get RETORNA O DADO QUE ESTÁ SENDO RETORNADO PELO MEU OPTIONAL. É PRECISO VALIDAR O QUE TEM DENTRO DELE
-            return ResponseEntity.ok(userFound.get());
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.notFound().build();
+        // O get RETORNA O DADO QUE ESTÁ SENDO RETORNADO PELO MEU OPTIONAL. É PRECISO VALIDAR O QUE TEM DENTRO DELE
+        return ResponseEntity.ok(userFound.get());
+    }
+
+    @PostMapping
+    public ResponseEntity<UserBD> insertUser(@RequestBody UserBD newUser) {
+        // TODO: Validar ser o user tem ID: disparar Exception caso não.
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.insertUser(newUser));
     }
 }

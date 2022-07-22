@@ -17,17 +17,33 @@ public class UserService implements IUserService{
     @Autowired
     private IUserDBRepository repository;
 
-//    public UserBD getUserById(long id) {
-//        /* findById retorna um Optional.
-//        * Podem ser feitas várias coisas com ele, sendo que
-//        * uma delas é usar o orElse.
-//        * Se achar retorna um UserBD, senão retorna null */
-//        // return (UserBD) repository.findById(id).orElse(null);
-//    }
+    //    public UserBD getUserById(long id) {
+    //        /* findById retorna um optional.
+    //        * podem ser feitas várias coisas com ele, sendo que
+    //        * uma delas é usar o orelse.
+    //        * se achar retorna um userbd, senão retorna null */
+    //
+    //        return (UserBD) repository.findById(id).orElse(null);
+    //    }
 
-    // --- AULA 2 ---- //
+    // -----------------------------------------------[ AULA 2 ]--------------------------------------------------- //
 
+    @Override
     public Optional<UserBD> getUserById(long id) {
         return repository.findById(id);
+    }
+
+    @Override
+    public UserBD insertUser(UserBD newUser) {
+        // RECEBE O USUÁRIO. GRAVA NO BANCO E RETORNA. ESSA IMPLEMENTAÇÃO FUNCIONA.
+        // return repository.save(newUser);
+
+        /* PORÉM, O MÉTODO SAVE SERVE TANTO PARA INSERIR QUANTO PARA ATUALIZAR.
+        * SE NÃO EXISTE ELE CRIA * SE EXISTE ELE VAI ATUALIZAR.
+        *
+        * TODAVIA, ESSE MÉTODO QUE ESTOU CRIANDO CHAMA-SE INSERTUSER E A EXPECTATIVA É QUE VENHA UM USUÁRIO SEM UM ID,
+        * PORTANTO É NECESSÁRIO FAZER UMA VALIDAÇÃO */
+        if (newUser.getId() > 0) return null;
+        return repository.save(newUser);
     }
 }
