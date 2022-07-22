@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserBDController {
 
+    // INJEÇÃO DE DEPENDÊNCIA = OBJETO É CRIADO PELO SPRING.
+    // O SPRING CUIDA DO CICLO DE VIDA DESTE OBJETO.
     @Autowired
     private UserService service;
 

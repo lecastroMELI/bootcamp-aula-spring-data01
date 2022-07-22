@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 /* JPA gera a classe, implementa os métodos e disponibiliza para uso */
 
 @Service
-public class UserService {
+public class UserService implements IUserService{
     /* PARA ACESSAR OS DADOS É NECESSÁRIO USAR O REPOSITORY
     * Portanto implementa-se a injeção de dependência,
     * que gera o objeto e o disponibiliza pronto para uso */
