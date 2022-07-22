@@ -5,6 +5,8 @@ import br.dh.meli.springdata01.repository.IUserDBRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /* JPA gera a classe, implementa os métodos e disponibiliza para uso */
 
 @Service
@@ -15,11 +17,17 @@ public class UserService implements IUserService{
     @Autowired
     private IUserDBRepository repository;
 
-    public UserBD getUserById(long id) {
-        /* findById retorna um Optional.
-        * Podem ser feitas várias coisas com ele, sendo que
-        * uma delas é usar o orElse.
-        * Se achar retorna um UserBD, senão retorna null */
-        return (UserBD) repository.findById(id).orElse(null);
+//    public UserBD getUserById(long id) {
+//        /* findById retorna um Optional.
+//        * Podem ser feitas várias coisas com ele, sendo que
+//        * uma delas é usar o orElse.
+//        * Se achar retorna um UserBD, senão retorna null */
+//        // return (UserBD) repository.findById(id).orElse(null);
+//    }
+
+    // --- AULA 2 ---- //
+
+    public Optional<UserBD> getUserById(long id) {
+        return repository.findById(id);
     }
 }

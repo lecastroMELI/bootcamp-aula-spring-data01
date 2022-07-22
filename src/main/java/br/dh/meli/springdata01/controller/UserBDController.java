@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin("*") // NÃO VALIDA A ORIGEM DE ONDE ESTÁ VINDO A REQUISIÇÃO. VAI ACEITAR REQUISIÇÕES DE QUALQUER LUGAR.
 @RequestMapping("/user")
@@ -18,10 +20,12 @@ public class UserBDController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserBD> buscaPorId(@PathVariable long id) {
-        UserBD userFound = service.getUserById(id);
+        // UserBD userFound = service.getUserById(id);
+        Optional<UserBD> userFound = service.getUserById(id);
 
-        if (userFound != null) {
-            return ResponseEntity.ok(userFound);
+        if (userFound.isEmpty()) {
+            // O get RETORNA O DADO QUE ESTÁ SENDO RETORNADO PELO MEU OPTIONAL. É PRECISO VALIDAR O QUE TEM DENTRO DELE
+            return ResponseEntity.ok(userFound.get());
         }
         return ResponseEntity.notFound().build();
     }
