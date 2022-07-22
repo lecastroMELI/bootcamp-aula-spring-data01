@@ -36,4 +36,15 @@ public class UserBDController {
         // TODO: Validar ser o user tem ID: disparar Exception caso não.
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insertUser(newUser));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable long id) {
+        Optional<UserBD> userFound = service.getUserById(id);
+
+        if (userFound.isPresent()) {
+            service.deleteUser(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

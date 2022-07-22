@@ -14,4 +14,6 @@ public interface IUserService {
     Optional<UserBD> getUserById(long id);
 
     UserBD insertUser(UserBD newUser);
+
+    void deleteUser(long id);
 }
